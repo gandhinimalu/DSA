@@ -1,0 +1,126 @@
+#include <stdio.h>
+
+#define MAX_SIZE 100  // Maximum size of the array (list)
+
+int main() {
+    int list[MAX_SIZE];  // Array to hold the list elements
+    int n = 0;           // Current number of elements in the list
+    int choice, pos, value, i;
+
+    while(1) {
+        // Display the menu of operations
+        printf("\nList Operations:\n");
+        printf("1. Insert an element\n");
+        printf("2. Delete an element\n");
+        printf("3. Search for an element\n");
+        printf("4. Update an element\n");
+        printf("5. Display the list\n");
+        printf("6. Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &choice);
+
+        switch(choice) {
+            case 1:
+                // Insert an element
+                if (n == MAX_SIZE) {
+                    printf("List is full. Cannot insert more elements.\n");
+                } else {
+                    printf("Enter the position (1 to %d) where you want to insert: ", n + 1);
+                    scanf("%d", &pos);
+                    if (pos > 0 && pos <= n + 1) {
+                        printf("Enter the value to insert: ");
+                        scanf("%d", &value);
+                        for (i = n; i >= pos; i--) {
+                            list[i] = list[i - 1];
+                        }
+                        list[pos - 1] = value;
+                        n++;
+                        printf("Element inserted successfully.\n");
+                    } else {
+                        printf("Invalid position.\n");
+                    }
+                }
+                break;
+
+            case 2:
+                // Delete an element
+                if (n == 0) {
+                    printf("List is empty. Cannot delete any element.\n");
+                } else {
+                    printf("Enter the position (1 to %d) of the element to delete: ", n);
+                    scanf("%d", &pos);
+                    if (pos > 0 && pos <= n) {
+                        for (i = pos - 1; i < n - 1; i++) {
+                            list[i] = list[i + 1];
+                        }
+                        n--;
+                        printf("Element deleted successfully.\n");
+                    } else {
+                        printf("Invalid position.\n");
+                    }
+                }
+                break;
+
+            case 3:
+                // Search for an element
+                if (n == 0) {
+                    printf("List is empty.\n");
+                } else {
+                    printf("Enter the value to search: ");
+                    scanf("%d", &value);
+                    int found = 0;
+                    for (i = 0; i < n; i++) {
+                        if (list[i] == value) {
+                            printf("Element found at position %d.\n", i + 1);
+                            found = 1;
+                            break;
+                        }
+                    }
+                    if (!found) {
+                        printf("Element not found in the list.\n");
+                    }
+                }
+                break;
+
+            case 4:
+                // Update an element
+                if (n == 0) {
+                    printf("List is empty. Cannot update any element.\n");
+                } else {
+                    printf("Enter the position (1 to %d) of the element to update: ", n);
+                    scanf("%d", &pos);
+                    if (pos > 0 && pos <= n) {
+                        printf("Enter the new value: ");
+                        scanf("%d", &value);
+                        list[pos - 1] = value;
+                        printf("Element updated successfully.\n");
+                    } else {
+                        printf("Invalid position.\n");
+                    }
+                }
+                break;
+
+            case 5:
+                // Display the list
+                if (n == 0) {
+                    printf("List is empty.\n");
+                } else {
+                    printf("List elements:\n");
+                    for (i = 0; i < n; i++) {
+                        printf("%d ", list[i]);
+                    }
+                    printf("\n");
+                }
+                break;
+
+            case 6:
+                // Exit the program
+                return 0;
+
+            default:
+                printf("Invalid choice. Please try again.\n");
+        }
+    }
+
+    return 0;
+}
