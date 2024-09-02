@@ -1,0 +1,49 @@
+#include <stdio.h>
+
+// Function to perform binary search on the sorted array
+int binarySearch(int arr[], int size, int target) {
+    int left = 0;
+    int right = size - 1;
+
+    while (left <= right) {
+        int middle = left + (right - left) / 2;
+
+        // Check if the target is present at the middle
+        if (arr[middle] == target) {
+            return middle; // Target found, return the index
+        }
+
+        // If the target is greater, ignore the left half
+        if (arr[middle] < target) {
+            left = middle + 1;
+        } 
+        // If the target is smaller, ignore the right half
+        else {
+            right = middle - 1;
+        }
+    }
+
+    return -1; // Target not found
+}
+
+int main() {
+    // Example ordered list of book IDs
+    int bookIDs[] = {1001, 1010, 1025, 1030, 1045, 1050, 1060, 1075, 1090, 1100};
+    int size = sizeof(bookIDs) / sizeof(bookIDs[0]); // Calculate the size of the array
+
+    int targetID;
+    printf("Enter the Book ID to search: ");
+    scanf("%d", &targetID);
+
+    // Perform binary search
+    int result = binarySearch(bookIDs, size, targetID);
+
+    // Check the result of the search
+    if (result != -1) {
+        printf("Book ID %d is available in the library.\n", targetID);
+    } else {
+        printf("Book ID %d is not available in the library.\n", targetID);
+    }
+
+    return 0;
+}
